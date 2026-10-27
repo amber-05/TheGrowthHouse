@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Icon from "./Icon";
 import { useId, useRef, useState } from "react";
 import { emptyValues, validate, type Errors, type Field, type FormConfig, type Values } from "@/lib/forms";
 
@@ -40,6 +41,12 @@ export default function ApplicationForm({
   const set = (name: string, v: Values[string]) => {
     setValues((s) => ({ ...s, [name]: v }));
     if (errors[name]) setErrors((e) => ({ ...e, [name]: "" }));
+  };
+
+  const checkField = (f: Field) => {
+    if (!values[f.name]) return; // empty fields are flagged when the step is submitted
+    const { errors: errs } = validate([f], values);
+    setErrors((e) => ({ ...e, [f.name]: errs[f.name] ?? "" }));
   };
 
   const focusFirstError = (errs: Errors) => {
@@ -108,9 +115,7 @@ export default function ApplicationForm({
     return (
       <div className="success" role="status" tabIndex={-1} ref={(el) => el?.focus()}>
         <div className="success__mark" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M5 12.5l4.5 4.5L19 7.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <Icon name="check" size={28} />
         </div>
         <h3>{config.successTitle}</h3>
         <p>{config.successMessage}</p>
@@ -122,10 +127,23 @@ export default function ApplicationForm({
     <form ref={formRef} onSubmit={onSubmit} noValidate aria-busy={status === "submitting"}>
       {steps && (
         <div className="stepper">
-          <ol aria-label="Progress">
+          <div
+            className="stepper__bar"
+            role="progressbar"
+            aria-label="Application progress"
+            aria-valuemin={1}
+            aria-valuemax={steps.length}
+            aria-valuenow={step + 1}
+            aria-valuetext={`Step ${step + 1} of ${steps.length}: ${steps[step]}`}
+          >
+            <span style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
+          </div>
+          <ol aria-label="Steps">
             {steps.map((s, i) => (
               <li key={s} aria-current={i === step ? "step" : undefined} data-done={i < step}>
-                <span className="stepper__n">{i + 1}</span>
+                <span className="stepper__n">
+                  {i < step ? <Icon name="check" size={14} /> : i + 1}
+                </span>
                 <span className="stepper__t">{s}</span>
               </li>
             ))}
@@ -144,6 +162,7 @@ export default function ApplicationForm({
             value={values[f.name]}
             error={errors[f.name]}
             onChange={(v) => set(f.name, v)}
+            onBlur={() => checkField(f)}
           />
         ))}
 
@@ -188,12 +207,14 @@ function FieldControl({
   value,
   error,
   onChange,
+  onBlur,
 }: {
   field: Field;
   id: string;
   value: Values[string];
   error?: string;
   onChange: (v: Values[string]) => void;
+  onBlur?: () => void;
 }) {
   const helpId = f.help ? `${id}-help` : undefined;
   const errId = error ? `${id}-err` : undefined;
@@ -272,10 +293,11 @@ function FieldControl({
           placeholder={f.placeholder}
           maxLength={f.maxLength ?? 3000}
           onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
           {...aria}
         />
       ) : f.type === "select" ? (
-        <select id={id} className="input" value={value as string} onChange={(e) => onChange(e.target.value)} {...aria}>
+        <select id={id} className="input" value={value as string} onChange={(e) => onChange(e.target.value)} onBlur={onBlur} {...aria}>
           <option value="">Select…</option>
           {(f.options ?? []).map((o) => (
             <option key={o.value} value={o.value}>{o.label}</option>
@@ -292,6 +314,7 @@ function FieldControl({
           autoComplete={AUTOCOMPLETE[f.name]}
           inputMode={f.type === "tel" ? "tel" : f.type === "number" ? "decimal" : undefined}
           onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
           {...aria}
         />
       )}

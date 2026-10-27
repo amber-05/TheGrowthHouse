@@ -10,7 +10,7 @@ export default function Footer() {
             <p className="footer-brand">
               Build bigger.<br /><em>Grow together.</em>
             </p>
-            <p style={{ marginTop: "1.25rem", maxWidth: "26rem", fontSize: ".95rem" }}>
+            <p style={{ marginTop: "1.25rem", maxWidth: "26rem" }}>
               {SITE.description}
             </p>
             {SITE.contactEmail && (

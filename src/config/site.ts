@@ -1,5 +1,6 @@
 export const SITE = {
   name: "The Growth House",
+  url: "https://the-growth-house.vercel.app",
   description: "A business ecosystem connecting founders, investors and experienced business leaders.",
   /**
    * Set NEXT_PUBLIC_CONTACT_EMAIL (e.g. hello@yourdomain.com) and it appears in

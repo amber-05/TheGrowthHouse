@@ -55,7 +55,7 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <Link href="/founders-club#apply" className="btn btn--sm">Join</Link>
+          <Link href="/founders-club#apply" className="btn btn--sm">Join the club</Link>
         </nav>
       </div>
       <span ref={progress} className="progress" aria-hidden="true" />

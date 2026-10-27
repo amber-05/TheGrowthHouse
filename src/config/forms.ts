@@ -64,7 +64,7 @@ const founderBase: FormConfig = {
   ],
 };
 
-export const founderForm = stepped(founderBase, ["You", "The Vision", "The Gap"], {
+export const founderForm = stepped(founderBase, ["Personal details", "Business information", "Goals & challenges"], {
   company: 1, website: 1, stage: 1, about: 1,
   interests: 2, challenge: 2, consent: 2,
 });
@@ -125,7 +125,7 @@ const investorBase: FormConfig = {
   ],
 };
 
-export const investorForm = stepped(investorBase, ["You", "Your Journey", "The Fit"], {
+export const investorForm = stepped(investorBase, ["Your details", "Your background", "Your interests"], {
   linkedin: 1, background: 1, investorType: 1,
   sectors: 2, ticket: 2, goals: 2, consent: 2,
 });

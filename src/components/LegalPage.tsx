@@ -4,7 +4,7 @@ export default function LegalPage({ title, children }: { title: string; children
   return (
     <>
       <section className="page-hero" style={{ paddingBottom: "2rem" }}>
-        <div className="page-hero__inner">
+        <div className="container narrow" style={{ display: "grid", gap: "1rem" }}>
           <p className="eyebrow">Legal</p>
           <h1 className="h-xl">{title}</h1>
           <p className="muted">Last updated {SITE.legalUpdated}</p>
