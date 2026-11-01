@@ -6,7 +6,7 @@ import ServicesExperience from "@/components/ServicesExperience";
 
 export const metadata: Metadata = {
   title: "Other Services",
-  description: "Business diagnostic, pitch deck development, due diligence support and growth partnership for owners and investors.",
+  description: "Business diagnostic, pitch deck development, due diligence, growth partnership, financial support and legal & compliance support for owners and investors.",
   alternates: { canonical: "/other-services" },
   openGraph: { title: "Other Services — The Growth House", url: "/other-services" },
 };

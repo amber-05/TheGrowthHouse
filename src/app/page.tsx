@@ -3,7 +3,9 @@ import CompanyStrip from "@/components/CompanyStrip";
 import Icon, { type IconName } from "@/components/Icon";
 import Photo from "@/components/Photo";
 import Reveal from "@/components/Reveal";
+import SupporterGrid from "@/components/SupporterGrid";
 import { SERVICES } from "@/config/services";
+import { HOME_SUPPORTERS } from "@/config/supporters";
 
 const BENEFITS: { icon: IconName; tone: string; title: string; text: string }[] = [
   {
@@ -201,7 +203,7 @@ export default function Home() {
             </div>
           </Reveal>
           <div className="grid-4">
-            {SERVICES.map((s, i) => (
+            {SERVICES.slice(0, 4).map((s, i) => (
               <Reveal key={s.id} delay={i * 80}>
                 <Link href={`/other-services?service=${s.id}#enquire`} className={`card card--${s.tone} service-card`}>
                   <div className="icon-badge"><Icon name={s.icon} /></div>
@@ -212,6 +214,33 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="supporters-title" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <Reveal>
+            <div className="section-intro section-intro--split">
+              <div>
+                <p className="eyebrow">Our supporters</p>
+                <h2 id="supporters-title" className="h-xl" style={{ marginTop: "1rem" }}>
+                  Our favourite <em>supporters.</em>
+                </h2>
+              </div>
+              <p className="lead">
+                The founders and businesses who back The Growth House. Hover over a logo to watch
+                their story.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal>
+            <SupporterGrid items={HOME_SUPPORTERS} />
+            <div className="btn-row" style={{ marginTop: "2rem" }}>
+              <Link href="/our-supporters" className="link-arrow">
+                Meet all our supporters <Icon name="arrow" size={18} />
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 

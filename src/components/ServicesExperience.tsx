@@ -35,7 +35,7 @@ export default function ServicesExperience({ process }: { process: React.ReactNo
           <Reveal>
             <div className="section-intro section-intro--split">
               <div>
-                <p className="eyebrow">Four ways we can help</p>
+                <p className="eyebrow">Six ways we can help</p>
                 <h2 id="services-title" className="h-xl" style={{ marginTop: "1rem" }}>
                   Choose where you <em>need us.</em>
                 </h2>

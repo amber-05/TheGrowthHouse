@@ -2,14 +2,16 @@ export type ServiceId =
   | "due-diligence"
   | "pitch-deck"
   | "growth-partner"
-  | "diagnostic-report";
+  | "diagnostic-report"
+  | "financial-support"
+  | "legal-compliance";
 
 export type Service = {
   id: ServiceId;
   title: string;
   /** Icon name from components/Icon.tsx and the card colour. */
-  icon: "search" | "doc" | "users" | "compass";
-  tone: "sage" | "blush" | "lavender" | "mustard";
+  icon: "search" | "doc" | "users" | "compass" | "chart" | "shield";
+  tone: "sage" | "blush" | "lavender" | "mustard" | "sand";
   summary: string;
   points: string[];
 };
@@ -50,5 +52,33 @@ export const SERVICES: Service[] = [
     summary:
       "An experienced person to think with. Regular working sessions with owners and leadership teams on strategy, priorities and the next stage of growth.",
     points: ["Ongoing strategic input", "Priority and roadmap setting", "Access to experienced operators"],
+  },
+  {
+    id: "financial-support",
+    icon: "chart",
+    tone: "sand",
+    title: "Financial Support",
+    summary:
+      "Experienced financial help for owners who want clearer numbers and a firmer plan, from day-to-day planning to preparing for a raise.",
+    points: [
+      "Financial planning and advisory",
+      "Financial modelling and projections",
+      "Fundraising financial assistance",
+      "Financial strategy and business planning",
+    ],
+  },
+  {
+    id: "legal-compliance",
+    icon: "shield",
+    tone: "lavender",
+    title: "Legal & Compliance Support",
+    summary:
+      "Practical legal and compliance help so the business is set up properly, documented clearly and kept on the right side of the rules.",
+    points: [
+      "Business registration and structuring",
+      "Legal documentation and agreements",
+      "Regulatory and statutory compliance",
+      "Corporate and legal advisory",
+    ],
   },
 ];

@@ -21,6 +21,13 @@ const AREAS: { icon: IconName; tone: string; t: string; d: string }[] = [
   { icon: "shield", tone: "sand", t: "Expert support", d: "Access specialists across areas such as finance, operations and growth when you need a deeper look." },
 ];
 
+const PLANS: { name: string; price: string; was?: string; per?: string; save?: string; best?: boolean }[] = [
+  { name: "Monthly Plan", price: "₹3,999", per: "/month" },
+  { name: "Quarterly Plan", was: "₹12,000", price: "₹9,999", save: "Save ₹2,001" },
+  { name: "Half-Yearly Plan", was: "₹24,000", price: "₹17,999", save: "Save ₹6,001" },
+  { name: "Yearly Plan", was: "₹48,000", price: "₹23,499", save: "Save ₹24,501", best: true },
+];
+
 const STEPS = [
   { t: "Apply", d: "Tell us about you, your business and what you are working through. It takes a few minutes." },
   { t: "We review", d: "A member of our team reads every application personally and may ask a few follow-up questions." },
@@ -100,6 +107,40 @@ export default function FoundersClub() {
                 <span className="card__cta">Apply to the club <Icon name="arrow" size={18} /></span>
               </a>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="pricing-title" id="pricing">
+        <div className="container">
+          <Reveal>
+            <div className="section-intro center" style={{ textAlign: "center", justifyItems: "center" }}>
+              <p className="eyebrow">Membership pricing</p>
+              <h2 id="pricing-title" className="h-xl" style={{ maxWidth: "18ch" }}>
+                Choose how long you <em>want to build with us.</em>
+              </h2>
+            </div>
+          </Reveal>
+          <div className="pricing">
+            {PLANS.map((p, i) => (
+              <Reveal key={p.name} delay={i * 80}>
+                <article className={`plan${p.best ? " plan--best" : ""}`}>
+                  {p.best && <span className="plan__flag">Best value</span>}
+                  <h3>{p.name}</h3>
+                  <p className="plan__was">
+                    {p.was ? <><span className="sr-only">Original price </span><s>{p.was}</s></> : <span aria-hidden="true">&nbsp;</span>}
+                  </p>
+                  <p className="plan__price">
+                    {p.was && <span className="sr-only">Offer price </span>}
+                    {p.price}<small>{p.per}</small>
+                  </p>
+                  <p className="plan__save">{p.save ?? "Pay as you go"}</p>
+                  <a href="#apply" className={`btn${p.best ? " btn--light" : ""}`}>
+                    Join the Founders Club <Icon name="arrow" size={18} />
+                  </a>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
