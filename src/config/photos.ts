@@ -13,7 +13,13 @@ export type PhotoSlot =
   | "community3"
   | "foundersHero"
   | "investorsHero"
-  | "servicesHero";
+  | "servicesHero"
+  | "boardroom"
+  | "pitching"
+  | "investorMeeting"
+  | "startupOffice"
+  | "leadership"
+  | "networking";
 
 export type Tone = "sage" | "blush" | "lavender" | "mustard" | "terracotta" | "olive" | "sand";
 
@@ -36,4 +42,11 @@ export const PHOTOS: Record<PhotoSlot, PhotoConfig> = {
   foundersHero: { alt: "A founder in a working session with peers", tone: "sage", art: "arch" },
   investorsHero: { alt: "An investor in conversation with a founder", tone: "olive", art: "rings" },
   servicesHero: { alt: "Advisers and a founder reviewing a plan together", tone: "blush", art: "waves" },
+  // Credibility gallery. Shown only once a real photo is set (see components/PhotoBand.tsx).
+  boardroom: { alt: "A boardroom discussion around a long table", tone: "olive", art: "rings" },
+  pitching: { alt: "A founder pitching an idea to a small group", tone: "mustard", art: "arch" },
+  investorMeeting: { alt: "An investor and a founder in conversation", tone: "sage", art: "waves" },
+  startupOffice: { alt: "A bright startup office with a team at work", tone: "lavender", art: "sun" },
+  leadership: { alt: "A leadership team meeting", tone: "blush", art: "arch" },
+  networking: { alt: "Business owners networking at an evening event", tone: "sand", art: "rings" },
 };

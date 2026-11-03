@@ -22,9 +22,9 @@ type Profile = { name: string; role: string; summary: string; src?: string };
 const VERIFIED_PROFILES: Profile[] = [];
 
 const OFFER: { icon: IconName; t: string; d: string }[] = [
-  { icon: "link", t: "Introductions with context", d: "Meet founders through the community, where you can see how they think and how they show up before any conversation about capital." },
-  { icon: "users", t: "A room of people who have built", d: "Exchange views with other investors and operators who understand the work behind a business." },
-  { icon: "search", t: "Support when you need it", d: "Access due diligence support and a diagnostic view of a business through our other services, as a separate, optional engagement." },
+  { icon: "intro", t: "Introductions with context", d: "Meet founders through the community, where you can see how they think and how they show up before any conversation about capital." },
+  { icon: "network", t: "A room of people who have built", d: "Exchange views with other investors and operators who understand the work behind a business." },
+  { icon: "diligence", t: "Support when you need it", d: "Access due diligence, financial and legal support and a diagnostic view of a business through our other services, as a separate, optional engagement." },
 ];
 
 const FAQ = [

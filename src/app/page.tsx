@@ -2,6 +2,7 @@ import Link from "next/link";
 import CompanyStrip from "@/components/CompanyStrip";
 import Icon, { type IconName } from "@/components/Icon";
 import Photo from "@/components/Photo";
+import PhotoBand from "@/components/PhotoBand";
 import Reveal from "@/components/Reveal";
 import SupporterGrid from "@/components/SupporterGrid";
 import { SERVICES } from "@/config/services";
@@ -9,7 +10,7 @@ import { HOME_SUPPORTERS } from "@/config/supporters";
 
 const BENEFITS: { icon: IconName; tone: string; title: string; text: string }[] = [
   {
-    icon: "chat",
+    icon: "dialogue",
     tone: "mustard",
     title: "Honest conversation",
     text: "Talk openly about the decisions that are hard to discuss elsewhere: hiring, pricing, raising money, and when to hold on or let go.",
@@ -21,7 +22,7 @@ const BENEFITS: { icon: IconName; tone: string; title: string; text: string }[] 
     text: "Think things through with business leaders who have run companies of their own and can offer perspective, not theory.",
   },
   {
-    icon: "link",
+    icon: "intro",
     tone: "blush",
     title: "Introductions with context",
     text: "People are introduced because it makes sense for both sides, and every introduction starts from an understanding of who you are.",
@@ -100,14 +101,14 @@ export default function Home() {
           <Reveal>
             <div className="bento">
               <Link href="/founders-club" className="card card--sage b-wide">
-                <div className="icon-badge"><Icon name="users" /></div>
+                <div className="icon-badge"><Icon name="founders" /></div>
                 <span className="card__tag">For builders</span>
                 <h3>Founders Club</h3>
                 <p>Peers, guidance and support for people building a business at any stage.</p>
                 <span className="card__cta">Explore <Icon name="arrow" size={18} /></span>
               </Link>
               <Link href="/investors-club" className="card card--forest b-wide">
-                <div className="icon-badge"><Icon name="chart" /></div>
+                <div className="icon-badge"><Icon name="investor" /></div>
                 <span className="card__tag">For backers</span>
                 <h3>Investors Club</h3>
                 <p>For investors who know what it takes to build and want to meet those who do.</p>
@@ -117,7 +118,7 @@ export default function Home() {
                 <p>The most useful room is the one where the hardest truths can be said out loud.</p>
               </div>
               <Link href="/other-services" className="card card--blush">
-                <div className="icon-badge"><Icon name="spark" /></div>
+                <div className="icon-badge"><Icon name="briefcase" /></div>
                 <span className="card__tag">For specific problems</span>
                 <h3>Other Services</h3>
                 <p>Hands-on help for the next stage.</p>
@@ -186,6 +187,12 @@ export default function Home() {
         </div>
       </section>
 
+      <PhotoBand
+        eyebrow="In the room"
+        title={<>Where serious <em>conversations</em> happen.</>}
+        slots={["boardroom", "pitching", "investorMeeting", "networking"]}
+      />
+
       <section className="section" aria-labelledby="services-title">
         <div className="container">
           <Reveal>
@@ -197,18 +204,18 @@ export default function Home() {
                 </h2>
               </div>
               <p className="lead">
-                Four focused services for owners and investors who want experienced hands on one
+                Six focused services for owners and investors who want experienced hands on one
                 thing at a time.
               </p>
             </div>
           </Reveal>
-          <div className="grid-4">
-            {SERVICES.slice(0, 4).map((s, i) => (
+          <div className="grid-3">
+            {SERVICES.map((s, i) => (
               <Reveal key={s.id} delay={i * 80}>
                 <Link href={`/other-services?service=${s.id}#enquire`} className={`card card--${s.tone} service-card`}>
                   <div className="icon-badge"><Icon name={s.icon} /></div>
                   <h3>{s.title}</h3>
-                  <p>{s.points[0]}.</p>
+                  <p>{s.points.slice(0, 2).join(" · ")}</p>
                   <span className="card__cta">Enquire <Icon name="arrow" size={18} /></span>
                 </Link>
               </Reveal>

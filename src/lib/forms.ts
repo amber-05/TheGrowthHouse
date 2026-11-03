@@ -32,16 +32,14 @@ export type Field = {
   patternMessage?: string;
   /** Layout hint only. */
   width?: "half" | "full";
-  /** 0-based step index when the form defines `steps`. */
-  step?: number;
+  /** Section heading this field is grouped under on the single-page form. */
+  group?: string;
 };
 
 export type FormConfig = {
   /** Public workflow id, also the :form segment of /api/submit/:form. */
   id: "founder" | "investor" | "enquiry";
   fields: Field[];
-  /** Optional step titles; fields pick their step via `step`. Omit for a single-page form. */
-  steps?: string[];
   submitLabel: string;
   successTitle: string;
   successMessage: string;

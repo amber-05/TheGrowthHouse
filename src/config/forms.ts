@@ -19,9 +19,9 @@ const STAGES = [
 const CONSENT_APPLICATION =
   "I agree to The Growth House storing and using the information above to review my application and contact me about it.";
 
-/** Groups a flat field list into steps: map each field name to its step index (default 0). */
-function stepped(base: FormConfig, steps: string[], stepOf: Record<string, number>): FormConfig {
-  return { ...base, steps, fields: base.fields.map((f) => ({ ...f, step: stepOf[f.name] ?? 0 })) };
+/** Assigns each field to a titled section of the single-page form. Fields not listed fall in the first section. */
+function grouped(base: FormConfig, sections: string[], sectionOf: Record<string, number>): FormConfig {
+  return { ...base, fields: base.fields.map((f) => ({ ...f, group: sections[sectionOf[f.name] ?? 0] })) };
 }
 
 const founderBase: FormConfig = {
@@ -64,7 +64,7 @@ const founderBase: FormConfig = {
   ],
 };
 
-export const founderForm = stepped(founderBase, ["Personal details", "Business information", "Goals & challenges"], {
+export const founderForm = grouped(founderBase, ["Personal details", "Business information", "Goals & challenges"], {
   company: 1, website: 1, stage: 1, about: 1,
   interests: 2, challenge: 2, consent: 2,
 });
@@ -125,7 +125,7 @@ const investorBase: FormConfig = {
   ],
 };
 
-export const investorForm = stepped(investorBase, ["Your details", "Your background", "Your interests"], {
+export const investorForm = grouped(investorBase, ["Your details", "Your background", "Your interests"], {
   linkedin: 1, background: 1, investorType: 1,
   sectors: 2, ticket: 2, goals: 2, consent: 2,
 });

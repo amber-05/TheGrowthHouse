@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Icon from "@/components/Icon";
 import Photo from "@/components/Photo";
+import PhotoBand from "@/components/PhotoBand";
 import Reveal from "@/components/Reveal";
 import ServicesExperience from "@/components/ServicesExperience";
 
@@ -42,6 +43,12 @@ export default function OtherServices() {
           <Photo slot="servicesHero" className="page-hero__photo" sizes="(min-width: 960px) 45vw, 100vw" priority />
         </div>
       </section>
+
+      <PhotoBand
+        eyebrow="How we work"
+        title={<>Advice given <em>across the table.</em></>}
+        slots={["leadership", "startupOffice", "boardroom"]}
+      />
 
       <ServicesExperience
         process={

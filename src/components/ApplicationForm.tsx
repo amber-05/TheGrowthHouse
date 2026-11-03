@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Icon from "./Icon";
-import { useId, useRef, useState } from "react";
+import { Fragment, useId, useRef, useState } from "react";
 import { emptyValues, validate, type Errors, type Field, type FormConfig, type Values } from "@/lib/forms";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -23,20 +23,8 @@ export default function ApplicationForm({
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [formError, setFormError] = useState("");
-  const [step, setStep] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
   const hp = useRef<HTMLInputElement>(null);
-  const stepRef = useRef<HTMLParagraphElement>(null);
-
-  const steps = config.steps;
-  const lastStep = steps ? steps.length - 1 : 0;
-  const stepOf = (f: Field) => f.step ?? 0;
-  const visible = steps ? config.fields.filter((f) => stepOf(f) === step) : config.fields;
-
-  const goTo = (n: number) => {
-    setStep(n);
-    requestAnimationFrame(() => stepRef.current?.focus());
-  };
 
   const set = (name: string, v: Values[string]) => {
     setValues((s) => ({ ...s, [name]: v }));
@@ -63,25 +51,10 @@ export default function ApplicationForm({
     if (status === "submitting") return;
     setFormError("");
 
-    // Not on the final step yet: validate this step only, then advance.
-    if (steps && step < lastStep) {
-      const { errors: errs } = validate(visible, values);
-      setErrors(errs);
-      if (Object.keys(errs).length) focusFirstError(errs);
-      else goTo(step + 1);
-      return;
-    }
-
     const { errors: errs } = validate(config.fields, values);
     setErrors(errs);
     if (Object.keys(errs).length) {
-      const bad = config.fields.find((f) => errs[f.name]);
-      if (steps && bad && stepOf(bad) !== step) {
-        setStep(stepOf(bad));
-        requestAnimationFrame(() => focusFirstError(errs));
-      } else {
-        focusFirstError(errs);
-      }
+      focusFirstError(errs);
       return;
     }
 
@@ -99,8 +72,6 @@ export default function ApplicationForm({
       }
       if (res.status === 422 && data.fields) {
         setErrors(data.fields);
-        const bad = config.fields.find((f) => data.fields[f.name]);
-        if (steps && bad) setStep(stepOf(bad));
         requestAnimationFrame(() => focusFirstError(data.fields));
       }
       setFormError(data.error ?? "Something went wrong. Please try again.");
@@ -125,45 +96,24 @@ export default function ApplicationForm({
 
   return (
     <form ref={formRef} onSubmit={onSubmit} noValidate aria-busy={status === "submitting"}>
-      {steps && (
-        <div className="stepper">
-          <div
-            className="stepper__bar"
-            role="progressbar"
-            aria-label="Application progress"
-            aria-valuemin={1}
-            aria-valuemax={steps.length}
-            aria-valuenow={step + 1}
-            aria-valuetext={`Step ${step + 1} of ${steps.length}: ${steps[step]}`}
-          >
-            <span style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
-          </div>
-          <ol aria-label="Steps">
-            {steps.map((s, i) => (
-              <li key={s} aria-current={i === step ? "step" : undefined} data-done={i < step}>
-                <span className="stepper__n">
-                  {i < step ? <Icon name="check" size={14} /> : i + 1}
-                </span>
-                <span className="stepper__t">{s}</span>
-              </li>
-            ))}
-          </ol>
-          <p ref={stepRef} tabIndex={-1} className="sr-only" aria-live="polite">
-            Step {step + 1} of {steps.length}: {steps[step]}
-          </p>
-        </div>
-      )}
       <div className="form-grid">
-        {visible.map((f) => (
-          <FieldControl
-            key={f.name}
-            field={f}
-            id={`${uid}-${f.name}`}
-            value={values[f.name]}
-            error={errors[f.name]}
-            onChange={(v) => set(f.name, v)}
-            onBlur={() => checkField(f)}
-          />
+        {config.fields.map((f, i) => (
+          <Fragment key={f.name}>
+            {f.group && f.group !== config.fields[i - 1]?.group && (
+              <h3 className="form-section">
+                <span className="form-section__n" aria-hidden="true">{sectionNumber(config, i)}</span>
+                {f.group}
+              </h3>
+            )}
+            <FieldControl
+              field={f}
+              id={`${uid}-${f.name}`}
+              value={values[f.name]}
+              error={errors[f.name]}
+              onChange={(v) => set(f.name, v)}
+              onBlur={() => checkField(f)}
+            />
+          </Fragment>
         ))}
 
         <div className="hp" aria-hidden="true">
@@ -178,18 +128,11 @@ export default function ApplicationForm({
             <div className="alert" role="alert">{formError}</div>
           )}
           <div className="btn-row">
-            {steps && step > 0 && (
-              <button className="btn btn--ghost" type="button" onClick={() => goTo(step - 1)} disabled={status === "submitting"}>
-                Back
-              </button>
-            )}
             <button className="btn" type="submit" disabled={status === "submitting"}>
               {status === "submitting" ? (
                 <>
                   <span className="spinner" aria-hidden="true" /> Sending…
                 </>
-              ) : steps && step < lastStep ? (
-                <>Continue <span aria-hidden="true">→</span></>
               ) : (
                 config.submitLabel
               )}
@@ -199,6 +142,13 @@ export default function ApplicationForm({
       </div>
     </form>
   );
+}
+
+/** 1-based position of the section that starts at field index `i`. */
+function sectionNumber(config: FormConfig, i: number) {
+  const seen = new Set<string>();
+  for (const f of config.fields.slice(0, i + 1)) if (f.group) seen.add(f.group);
+  return seen.size;
 }
 
 function FieldControl({

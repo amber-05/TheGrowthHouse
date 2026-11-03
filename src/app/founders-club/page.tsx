@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 };
 
 const AREAS: { icon: IconName; tone: string; t: string; d: string }[] = [
-  { icon: "users", tone: "ivory", t: "Founder networking", d: "Meet other people building businesses, share what is working, and find peers who understand the road you are on." },
+  { icon: "network", tone: "ivory", t: "Founder networking", d: "Meet other people building businesses, share what is working, and find peers who understand the road you are on." },
   { icon: "compass", tone: "lavender", t: "Strategic guidance", d: "Talk through decisions with experienced business leaders who can offer perspective on strategy, priorities and direction." },
-  { icon: "chart", tone: "mustard", t: "Fundraising preparation", d: "Understand what investors look for and present your business clearly. We help you prepare; we do not promise funding." },
+  { icon: "fundraise", tone: "mustard", t: "Fundraising preparation", d: "Understand what investors look for and present your business clearly. We help you prepare; we do not promise funding." },
   { icon: "sprout", tone: "blush", t: "Mentorship", d: "Learn from people who have built, scaled and, at times, struggled with businesses of their own." },
-  { icon: "shield", tone: "sand", t: "Expert support", d: "Access specialists across areas such as finance, operations and growth when you need a deeper look." },
+  { icon: "expert", tone: "sand", t: "Expert support", d: "Access specialists across areas such as finance, legal and compliance, operations and growth when you need a deeper look." },
 ];
 
 const PLANS: { name: string; price: string; was?: string; per?: string; save?: string; best?: boolean }[] = [
@@ -67,7 +67,7 @@ export default function FoundersClub() {
             <div className="form-card__head">
               <p className="eyebrow">Apply</p>
               <h2 id="apply-title">Tell us about your business</h2>
-              <p>Three short steps. Every application is reviewed personally.</p>
+              <p>One short form. Every application is reviewed personally.</p>
             </div>
             <ApplicationForm config={founderForm} />
           </div>

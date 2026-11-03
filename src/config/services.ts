@@ -10,7 +10,7 @@ export type Service = {
   id: ServiceId;
   title: string;
   /** Icon name from components/Icon.tsx and the card colour. */
-  icon: "search" | "doc" | "users" | "compass" | "chart" | "shield";
+  icon: "diagnostic" | "diligence" | "deck" | "partner" | "finance" | "legal";
   tone: "sage" | "blush" | "lavender" | "mustard" | "sand";
   summary: string;
   points: string[];
@@ -19,7 +19,7 @@ export type Service = {
 export const SERVICES: Service[] = [
   {
     id: "diagnostic-report",
-    icon: "compass",
+    icon: "diagnostic",
     tone: "mustard",
     title: "Business Diagnostic",
     summary:
@@ -28,7 +28,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "due-diligence",
-    icon: "search",
+    icon: "diligence",
     tone: "lavender",
     title: "Due Diligence Support",
     summary:
@@ -37,7 +37,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "pitch-deck",
-    icon: "doc",
+    icon: "deck",
     tone: "blush",
     title: "Pitch Deck Development",
     summary:
@@ -46,7 +46,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "growth-partner",
-    icon: "users",
+    icon: "partner",
     tone: "sage",
     title: "Growth Partner",
     summary:
@@ -55,7 +55,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "financial-support",
-    icon: "chart",
+    icon: "finance",
     tone: "sand",
     title: "Financial Support",
     summary:
@@ -69,7 +69,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "legal-compliance",
-    icon: "shield",
+    icon: "legal",
     tone: "lavender",
     title: "Legal & Compliance Support",
     summary:
