@@ -484,3 +484,55 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
   .cta-band__orb { width: 220px; height: 220px; right: -80px; top: -80px; }
   .hero__badge { left: 0; }
 }
+
+/* ---------- Blog, gallery ---------- */
+.blog-grid, .gallery-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.blog-card { display: grid; gap: .6rem; text-decoration: none; color: inherit; align-content: start; }
+.blog-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); }
+.blog-card time { font-size: .85rem; color: var(--muted); }
+.blog-card h2 { margin: 0; }
+.blog-card:hover h2 { color: var(--terracotta-text); }
+.gallery-grid figure { margin: 0; display: grid; gap: .5rem; }
+.gallery-grid img, .gallery-grid video { width: 100%; border-radius: var(--radius-sm); background: var(--sage); }
+.gallery-grid figcaption, .prose figcaption { font-size: .88rem; color: var(--muted); }
+.post__wrap { max-width: 46rem; display: grid; gap: 1.25rem; }
+.post__back { font-size: .92rem; }
+.post__cover { width: 100%; border-radius: var(--radius); }
+.prose { font-size: 1.1rem; line-height: 1.75; }
+.prose > * { margin: 0 0 1.25rem; }
+.prose h2, .prose h3 { font-family: var(--font-serif); font-weight: 400; color: var(--forest); margin-top: 2.25rem; }
+.prose img, .prose video { width: 100%; border-radius: var(--radius-sm); }
+.prose blockquote { border-left: 3px solid var(--terracotta); padding-left: 1.25rem; font-family: var(--font-serif); font-size: 1.35rem; }
+.prose a { color: var(--terracotta-text); }
+
+/* ---------- Admin ---------- */
+.admin { padding-block: calc(var(--header-h) + 2rem) 5rem; min-height: 70vh; }
+.admin > .container { display: grid; gap: 1.5rem; max-width: 60rem; }
+.admin__bar { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+.admin__bar a, .admin__link { font: inherit; font-weight: 600; font-size: .92rem; color: var(--forest); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.admin__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.admin__card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1.25rem; box-shadow: var(--shadow); }
+.admin__tiles { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.admin__tile { display: grid; gap: .4rem; text-decoration: none; color: inherit; }
+.admin__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.admin__row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.admin__row small { display: block; color: var(--muted); }
+.admin__badge { font-size: .8rem; font-weight: 600; padding: .25rem .7rem; border-radius: 999px; background: var(--sand); }
+.admin__badge.is-live { background: var(--sage); }
+.admin__form { display: grid; gap: 1rem; }
+.admin__field { display: grid; gap: .35rem; font-weight: 600; font-size: .92rem; }
+.admin__field input:not([type="file"]), .admin__field textarea, .admin__field select { font: inherit; font-weight: 400; padding: .7rem .85rem; border: 1px solid var(--line); border-radius: 12px; background: var(--ivory); width: 100%; }
+.admin__field small { font-weight: 400; color: var(--muted); }
+.admin__check { display: flex; gap: .6rem; align-items: center; }
+.admin__error { color: var(--error); font-weight: 600; }
+.admin__ok { color: var(--olive-btn); font-weight: 600; }
+.admin__hint { color: var(--muted); }
+.admin__danger { margin-top: .75rem; }
+.admin__danger .admin__link { color: var(--error); }
+.admin__login { max-width: 24rem; display: grid; gap: 1rem; }
+.admin__media > li { display: grid; gap: 1rem; grid-template-columns: 12rem 1fr; }
+.admin__media .admin__danger { grid-column: 2; margin: 0; }
+.admin__thumb img, .admin__thumb video, .admin__slotimg { width: 100%; border-radius: 12px; max-height: 12rem; object-fit: cover; }
+.admin__slotimg { max-width: 14rem; }
+.admin__uploads { list-style: none; padding: 0; margin: .75rem 0 0; font-size: .9rem; }
+@media (max-width: 640px) { .admin__media > li { grid-template-columns: 1fr; } .admin__media .admin__danger { grid-column: 1; } }

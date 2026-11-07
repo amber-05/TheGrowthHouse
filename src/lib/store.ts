@@ -1,5 +1,6 @@
 import "server-only";
 import type { Values } from "./forms";
+import { authHeaders } from "./supabase";
 
 /** Each workflow lands in its own table. See supabase/schema.sql. */
 export const TABLES = {
@@ -28,8 +29,7 @@ export async function insertSubmission(
   const res = await fetch(`${url.replace(/\/$/, "")}/rest/v1/${TABLES[form]}`, {
     method: "POST",
     headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
+      ...authHeaders(key),
       "Content-Type": "application/json",
       Prefer: "return=minimal",
     },

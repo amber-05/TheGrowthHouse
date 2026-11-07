@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { PHOTOS, type PhotoSlot } from "@/config/photos";
+import type { PhotoSlot } from "@/config/photos";
+import { resolvePhoto } from "@/lib/content";
 
 /** Decorative motifs used when a slot has no photo yet. */
 function Art({ kind }: { kind: "arch" | "rings" | "waves" | "sun" }) {
@@ -39,7 +40,7 @@ function Art({ kind }: { kind: "arch" | "rings" | "waves" | "sun" }) {
 }
 
 /** A photography slot from src/config/photos.ts. Falls back to a branded panel until a photo is supplied. */
-export default function Photo({
+export default async function Photo({
   slot,
   className = "",
   sizes = "(min-width: 960px) 45vw, 100vw",
@@ -50,7 +51,7 @@ export default function Photo({
   sizes?: string;
   priority?: boolean;
 }) {
-  const p = PHOTOS[slot];
+  const p = await resolvePhoto(slot);
   return (
     <div className={`photo photo--${p.tone} ${className}`}>
       {p.src ? (

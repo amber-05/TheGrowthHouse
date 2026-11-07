@@ -49,4 +49,6 @@ export const NAV = [
   { href: "/investors-club", label: "Investors Club" },
   { href: "/other-services", label: "Other Services" },
   { href: "/our-supporters", label: "Our Supporters" },
+  { href: "/blog", label: "Blog" },
+  { href: "/gallery", label: "Gallery" },
 ];

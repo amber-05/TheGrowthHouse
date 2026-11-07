@@ -1,13 +1,14 @@
 import Photo from "./Photo";
 import Reveal from "./Reveal";
-import { PHOTOS, type PhotoSlot } from "@/config/photos";
+import type { PhotoSlot } from "@/config/photos";
+import { resolvePhoto } from "@/lib/content";
 
 /**
  * A row of real photographs under a short heading. Slots with no photo yet
  * are skipped, and the whole band is omitted when none are set, so the page
  * never shows placeholder art where credibility imagery is expected.
  */
-export default function PhotoBand({
+export default async function PhotoBand({
   eyebrow,
   title,
   slots,
@@ -16,7 +17,9 @@ export default function PhotoBand({
   title: React.ReactNode;
   slots: PhotoSlot[];
 }) {
-  const ready = slots.filter((s) => PHOTOS[s].src);
+  const ready = (await Promise.all(slots.map(async (s) => ((await resolvePhoto(s)).src ? s : null)))).filter(
+    (s): s is PhotoSlot => s !== null,
+  );
   if (!ready.length) return null;
   return (
     <section className="section section--tight" aria-label={eyebrow}>
